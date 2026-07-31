@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Workshop Bistro — Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16233F;
+    --navy-soft:#243452;
+    --cream:#F6EFE1;
+    --paper:#FBF7EC;
+    --burgundy:#B23A48;
+    --burgundy-deep:#8E2C38;
+    --caramel:#C6863E;
+    --gold:#D6A24C;
+    --ink:#241C15;
+    --ink-soft:#5B5142;
+    --line:rgba(22,35,63,0.12);
+    --shadow:0 12px 30px -14px rgba(22,35,63,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 10% 8%, rgba(198,134,62,0.10), transparent 40%),
+      radial-gradient(circle at 90% 0%, rgba(178,58,72,0.08), transparent 45%);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:64px;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.02em;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:38px 22px 30px;
+    text-align:center;
+    overflow:hidden;
+    background:
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-soft) 78%, var(--cream) 100%);
+    color:var(--cream);
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 14px);
+    pointer-events:none;
+  }
+  .status-row{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
+    opacity:0; animation:riseIn .7s ease forwards; animation-delay:.05s;
+    color:#D9CDB2;
+  }
+  .status-dot{width:6px;height:6px;border-radius:50%;background:#7CC98A;box-shadow:0 0 0 3px rgba(124,201,138,0.25);}
+
+  .bean-mark{
+    width:108px;height:66px;margin:18px auto 6px;
+    opacity:0; animation:riseIn .8s ease forwards; animation-delay:.15s;
+  }
+  .bean-mark svg{width:100%;height:100%;display:block;}
+  .bean-mark .arc{stroke:var(--gold);stroke-width:1.1;fill:none;opacity:.75;}
+  .bean-mark .rays line{stroke:var(--gold);stroke-width:1.1;opacity:.55;}
+  .bean-mark .bean{fill:var(--cream);}
+  .bean-mark .bean.center{fill:var(--gold);}
+
+  .brand-name{
+    font-size:clamp(30px,8vw,42px);
+    font-weight:600;
+    margin:4px 0 2px;
+    opacity:0; animation:riseIn .8s ease forwards; animation-delay:.25s;
+  }
+  .brand-tag{
+    font-style:italic; font-weight:500;
+    color:var(--gold);
+    font-size:14px;
+    margin:0 0 18px;
+    opacity:0; animation:riseIn .8s ease forwards; animation-delay:.35s;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:8px;
+    justify-content:center;
+    opacity:0; animation:riseIn .8s ease forwards; animation-delay:.45s;
+  }
+  .pill{
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.16);
+    padding:7px 12px; border-radius:999px;
+    font-size:12.5px; color:#EFE7D4;
+    backdrop-filter:blur(6px);
+  }
+  .pill b{color:var(--gold); font-weight:600;}
+
+  .cta-row{
+    display:flex; gap:10px; justify-content:center; margin-top:20px;
+    opacity:0; animation:riseIn .8s ease forwards; animation-delay:.55s;
+  }
+  .btn{
+    padding:12px 18px; border-radius:12px; font-size:13.5px; font-weight:600;
+    display:inline-flex; align-items:center; gap:7px;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    cursor:pointer; border:none;
+  }
+  .btn-primary{background:var(--burgundy); color:#fff; box-shadow:0 10px 22px -10px rgba(178,58,72,0.7);}
+  .btn-primary:active{transform:scale(.96);}
+  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.35); color:var(--cream);}
+  .btn-ghost:active{transform:scale(.96); background:rgba(255,255,255,0.08);}
+
+  @keyframes riseIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ---------- ABOUT STRIP ---------- */
+  .about{
+    margin:-1px 16px 0;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px 18px 6px;
+    box-shadow:var(--shadow);
+    position:relative; top:-22px;
+  }
+  .about-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px 10px;
+    padding-bottom:14px;
+  }
+  .about-item{font-size:12.5px; color:var(--ink-soft); line-height:1.5;}
+  .about-item .label{
+    display:block; font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--caramel); font-weight:600; margin-bottom:3px;
+  }
+  .about-item .val{color:var(--ink); font-weight:500;}
+  .about-full{grid-column:1 / -1;}
+
+  /* ---------- NAV / CATEGORY PILLS ---------- */
+  .cat-nav-wrap{
+    position:sticky; top:0; z-index:20;
+    background:var(--cream);
+    padding:14px 0 10px;
+    box-shadow:0 8px 14px -12px rgba(22,35,63,0.25);
+  }
+  .cat-nav{
+    display:flex; gap:8px; overflow-x:auto;
+    padding:0 16px; scrollbar-width:none;
+  }
+  .cat-nav::-webkit-scrollbar{display:none;}
+  .cat-chip{
+    flex:0 0 auto;
+    padding:9px 14px; border-radius:999px;
+    font-size:12.5px; font-weight:600;
+    background:#fff; border:1px solid var(--line); color:var(--ink-soft);
+    white-space:nowrap;
+    transition:all .2s ease;
+    cursor:pointer;
+  }
+  .cat-chip.active{
+    background:var(--navy); color:var(--cream); border-color:var(--navy);
+    box-shadow:0 8px 16px -8px rgba(22,35,63,0.5);
+  }
+
+  /* ---------- MENU ---------- */
+  .menu-wrap{padding:6px 16px 0;}
+  .cat-section{margin-top:30px; scroll-margin-top:74px;}
+  .cat-header{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:12px;
+  }
+  .cat-header .icon{font-size:20px;}
+  .cat-header h2{font-size:21px; margin:0; color:var(--navy); font-weight:600;}
+  .cat-header .count{
+    font-size:11px; color:var(--ink-soft); margin-left:auto;
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  .item{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    margin-bottom:10px;
+    overflow:hidden;
+    transition:box-shadow .25s ease, border-color .25s ease;
+  }
+  .item.open{
+    box-shadow:var(--shadow);
+    border-color:rgba(198,134,62,0.4);
+  }
+  .item-head{
+    display:flex; align-items:center; gap:12px;
+    padding:14px 14px;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .item-head .glyph{
+    width:38px;height:38px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px; flex:0 0 auto;
+    background:linear-gradient(145deg, rgba(198,134,62,0.15), rgba(178,58,72,0.10));
+  }
+  .item-info{flex:1; min-width:0;}
+  .item-name{font-size:15px; font-weight:600; color:var(--ink);}
+  .item-sub{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+  .item-price{
+    font-size:13.5px; font-weight:600; color:var(--burgundy);
+    white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .chevron{
+    width:20px;height:20px; flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .32s cubic-bezier(.4,0,.2,1);
+    color:var(--caramel);
+  }
+  .item.open .chevron{transform:rotate(90deg);}
+
+  .item-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s cubic-bezier(.4,0,.2,1), padding .38s ease;
+  }
+  .item-body-inner{
+    padding:0 14px 16px 64px;
+    font-size:13px; line-height:1.6; color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:12px;
+    margin-top:-1px;
+  }
+  .item-body-inner .tag{
+    display:inline-block; margin-top:8px;
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--caramel); font-weight:600;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer{
+    margin:44px 16px 0;
+    background:var(--navy);
+    color:var(--cream);
+    border-radius:20px 20px 0 0;
+    padding:30px 22px 26px;
+    text-align:center;
+  }
+  .footer .bean-mark{filter:brightness(1.2);}
+  .footer p{font-size:12.5px; color:#C9BFA8; line-height:1.7; max-width:320px; margin:8px auto 20px;}
+  .social-row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+  .social-pill{
+    padding:10px 16px; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.18);
+    font-size:12.5px; font-weight:600;
+    display:flex; align-items:center; gap:6px;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .social-pill:active{transform:scale(.95); background:rgba(255,255,255,0.08);}
+  .footer-note{margin-top:22px; font-size:10.5px; color:#8C86A0; letter-spacing:.05em;}
+
+  /* Fade-in on scroll */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .55s ease, transform .55s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    height:54px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 14px;
+    background:rgba(22,35,63,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .icon-btn{
+    width:38px;height:38px; border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.14);
+    color:var(--cream);
+    cursor:pointer;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .icon-btn:active{transform:scale(.92); background:rgba(255,255,255,0.16);}
+  .topbar-title{
+    font-family:'Fraunces',serif; font-size:15px; font-weight:600;
+    color:var(--cream); letter-spacing:.01em;
+  }
+  .hero{padding-top:76px;}
+
+  /* ---------- DRAWER ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(15,20,34,0.55);
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+    z-index:70;
+  }
+  .overlay.open{opacity:1; pointer-events:auto;}
+  .drawer{
+    position:fixed; top:0; left:0; bottom:0;
+    width:min(78vw, 300px);
+    background:var(--navy);
+    color:var(--cream);
+    z-index:80;
+    transform:translateX(-104%);
+    transition:transform .38s cubic-bezier(.4,0,.2,1);
+    display:flex; flex-direction:column;
+    box-shadow:20px 0 40px -10px rgba(0,0,0,0.4);
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{
+    padding:20px 18px 14px;
+    display:flex; align-items:center; gap:10px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .drawer-head .bean-mark{width:34px;height:22px;margin:0;}
+  .drawer-head b{font-family:'Fraunces',serif; font-size:16px;}
+  .drawer-scroll{flex:1; overflow-y:auto; padding:10px 8px 18px;}
+  .drawer-section-label{
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    color:#9C93A8; padding:14px 12px 6px;
+  }
+  .drawer-link{
+    display:flex; align-items:center; gap:10px;
+    padding:11px 12px; border-radius:10px;
+    font-size:13.5px; font-weight:500; color:#EFE7D4;
+    cursor:pointer;
+    transition:background .18s ease;
+  }
+  .drawer-link:active, .drawer-link:hover{background:rgba(255,255,255,0.08);}
+  .drawer-link .dot{width:5px;height:5px;border-radius:50%;background:var(--gold); flex:0 0 auto;}
+  .drawer-foot{
+    padding:14px 18px; border-top:1px solid rgba(255,255,255,0.1);
+    font-size:11px; color:#8C86A0;
+  }
+
+  /* ---------- QR MODAL ---------- */
+  .qr-modal{
+    position:fixed; inset:0; z-index:90;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    background:rgba(15,20,34,0.68);
+    opacity:0; pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .qr-modal.open{opacity:1; pointer-events:auto;}
+  .qr-card{
+    background:var(--paper);
+    border-radius:20px;
+    padding:26px 24px 22px;
+    max-width:320px; width:100%;
+    text-align:center;
+    transform:scale(.92); transition:transform .3s ease;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .qr-modal.open .qr-card{transform:scale(1);}
+  .qr-card h3{margin:0 0 4px; font-size:18px; color:var(--navy);}
+  .qr-card p{font-size:11.5px; color:var(--ink-soft); margin:0 0 16px;}
+  .qr-card img{
+    width:200px; height:200px; border-radius:12px;
+    border:8px solid #fff; box-shadow:var(--shadow);
+    background:#fff;
+  }
+  .qr-url{
+    margin-top:14px; font-size:10.5px; word-break:break-all;
+    color:var(--caramel); font-family:'IBM Plex Mono',monospace;
+    background:rgba(198,134,62,0.1); padding:8px 10px; border-radius:8px;
+  }
+  .qr-actions{display:flex; gap:8px; margin-top:16px;}
+  .qr-actions .btn{flex:1; justify-content:center; font-size:12.5px; padding:11px;}
+  .btn-dark{background:var(--navy); color:#fff;}
+  .btn-outline{background:transparent; border:1px solid var(--line); color:var(--ink);}
+
+  @media print{
+    body *{visibility:hidden;}
+    .qr-card, .qr-card *{visibility:visible;}
+    .qr-card{position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(1.4); box-shadow:none;}
+    .qr-actions{display:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="topbar">
+  <button class="icon-btn" id="menuToggle" aria-label="Menu">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <span class="topbar-title">Workshop Bistro</span>
+  <button class="icon-btn" id="qrToggle" aria-label="QR Code">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M18 18h3v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!-- ================= DRAWER ================= -->
+<div class="overlay" id="overlay"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="bean-mark">
+      <svg viewBox="0 0 120 74">
+        <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
+        <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
+        <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
+      </svg>
+    </div>
+    <b>Workshop Bistro</b>
+  </div>
+  <div class="drawer-scroll">
+    <div class="drawer-link" data-jump="top"><span class="dot"></span>Accueil</div>
+    <div class="drawer-link" data-jump="sec-breakfast"><span class="dot"></span>Menu</div>
+    <div class="drawer-link" data-external="https://www.google.com/maps/search/?api=1&query=Workshop+Bistro+Kelibia"><span class="dot"></span>Localisation</div>
+    <div class="drawer-link" data-jump="footerAnchor"><span class="dot"></span>Contact</div>
+    <div class="drawer-section-label">Catégories</div>
+    <div id="drawerCats"></div>
+  </div>
+  <div class="drawer-foot">Av. de l'environnement, Kélibia<br>07:00 – 23:00, tous les jours</div>
+</nav>
+
+<!-- ================= QR MODAL ================= -->
+<div class="qr-modal" id="qrModal">
+  <div class="qr-card">
+    <h3>Scanner pour voir le menu</h3>
+    <p>À imprimer et coller sur les tables</p>
+    <img id="qrImg" alt="QR code vers le menu" width="200" height="200">
+    <div class="qr-url mono" id="qrUrl"></div>
+    <div class="qr-actions">
+      <button class="btn btn-outline" id="qrClose">Fermer</button>
+      <button class="btn btn-dark" id="qrPrint">🖨 Imprimer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="status-row">
+    <span class="status-dot"></span>
+    <span id="statusText">Ouvert · Ferme à 23:00</span>
+  </div>
+
+  <div class="bean-mark">
+    <svg viewBox="0 0 120 74">
+      <path class="arc" d="M6,66 A54,54 0 0 1 114,66"/>
+      <g class="rays">
+        <line x1="14" y1="60" x2="10" y2="50"/>
+        <line x1="24" y1="48" x2="19" y2="39"/>
+        <line x1="38" y1="38" x2="34" y2="28"/>
+        <line x1="60" y1="32" x2="60" y2="20"/>
+        <line x1="82" y1="38" x2="86" y2="28"/>
+        <line x1="96" y1="48" x2="101" y2="39"/>
+        <line x1="106" y1="60" x2="110" y2="50"/>
+      </g>
+      <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
+      <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
+      <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
+    </svg>
+  </div>
+
+  <h1 class="brand-name">Workshop Bistro</h1>
+  <p class="brand-tag">It feels like home — this is my happy place</p>
+
+  <div class="hero-meta">
+    <span class="pill">★ <b>4.3</b> (112 avis)</span>
+    <span class="pill">📍 Kélibia</span>
+    <span class="pill">Depuis <b>2018</b></span>
+    <span class="pill">10–20 DT / pers.</span>
+  </div>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://wa.me/21621355006" target="_blank" rel="noopener">💬 Commander / WhatsApp</a>
+    <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Workshop+Bistro+Kelibia" target="_blank" rel="noopener">🧭 Itinéraire</a>
+  </div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section class="about reveal">
+  <div class="about-grid">
+    <div class="about-item">
+      <span class="label">Adresse</span>
+      <span class="val">Av. de l'environnement, Kélibia</span>
+    </div>
+    <div class="about-item">
+      <span class="label">Téléphone</span>
+      <span class="val">21 355 006</span>
+    </div>
+    <div class="about-item">
+      <span class="label">Instagram</span>
+      <span class="val">@workshop_bistro</span>
+    </div>
+    <div class="about-item">
+      <span class="label">Facebook</span>
+      <span class="val">@workshopbistro08</span>
+    </div>
+    <div class="about-item about-full">
+      <span class="label">Contact</span>
+      <span class="val">Propriétaire : à compléter · Email : contact@workshopbistro.tn (à confirmer)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORY NAV ================= -->
+<div class="cat-nav-wrap">
+  <nav class="cat-nav" id="catNav"></nav>
+</div>
+
+<!-- ================= MENU ================= -->
+<main class="menu-wrap" id="menuRoot"></main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="bean-mark" style="width:64px;height:40px;">
+    <svg viewBox="0 0 120 74">
+      <path class="arc" d="M6,66 A54,54 0 0 1 114,66"/>
+      <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
+      <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
+      <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
+    </svg>
+  </div>
+  <h3 class="display" style="margin:6px 0 2px; font-size:19px;">Workshop Bistro</h3>
+  <p>Av. de l'environnement, Kélibia · Ouvert tous les jours de 07:00 à 23:00.</p>
+  <div class="social-row">
+    <a class="social-pill" href="https://instagram.com/workshop_bistro" target="_blank" rel="noopener">Instagram</a>
+    <a class="social-pill" href="https://facebook.com/workshopbistro08" target="_blank" rel="noopener">Facebook</a>
+    <a class="social-pill" href="tel:21355006">Appeler</a>
+  </div>
+  <div class="footer-note">Menu &amp; prix indicatifs · sujet à changement</div>
+</footer>
+
+<script>
+/* ================= DATA ================= */
+const MENU = [
+  { id:'breakfast', title:'Breakfast', icon:'🥐', items:[
+    { name:'Quickly', price:'8,5', desc:'Café au choix, Eau 0.5L, Jus Frais, Viennoiserie.' },
+    { name:'Yogurt Bowl', price:'12', desc:'Café au choix, Eau 0.5L, Jus Frais, Granola fait maison, Fruit de saison.' },
+    { name:'Salty', price:'19', desc:'Café au choix, Eau 0.5L, Jus Frais, Viennoiserie, Confiture/Beurre/Chocolat, Omelette avec Salade et Charcuterie.' },
+    { name:'Duo', price:'38', desc:'Pour 2 : Deux Cafés, Deux Eaux 0.5L, Deux Jus Frais, Deux Viennoiseries, Confiture/Beurre/Chocolat, Deux Omelettes avec Salade & Charcuterie, Deux mini Crêpes au Chocolat, Deux Yaourts au Granola, Deux Salades de Fruits.' },
+  ]},
+  { id:'coffee', title:'Café', icon:'☕', items:[
+    { name:'Espresso', price:'3,5', desc:'Court, intense et corsé.' },
+    { name:'Macchiato', price:'4', desc:'Espresso taché d\u2019un nuage de mousse de lait.' },
+    { name:'American', price:'4', desc:'Espresso allongé à l\u2019eau chaude.' },
+    { name:'Latte Macchiato', price:'4,5', desc:'Lait chaud, mousse onctueuse et une touche d\u2019espresso.' },
+    { name:'Néscafé / Ricoré', price:'6' },
+    { name:'Capsule / Décaféiné', price:'5' },
+    { name:'Affogato', price:'7', desc:'Glace vanille noyée dans un espresso chaud.' },
+    { name:'Mochaccino', price:'7', desc:'Espresso, chocolat et lait vapeur.' },
+    { name:'Chocolat au lait', price:'5' },
+    { name:'Cacao au lait', price:'5' },
+    { name:'Nutella au lait', price:'8' },
+    { name:'Cappuccino', price:'8' },
+    { name:'Macchiato aromatisé — Caramel / Vanille / Noisette', price:'7' },
+    { name:'Café Glacé — Caramel / Vanille / Noisette', price:'8' },
+    { name:'Arôme au choix (Vanille, Caramel, Noisette, Cookies)', price:'+1', desc:'À ajouter à n\u2019importe quel café.' },
+  ]},
+  { id:'chocolate', title:'Chocolat', icon:'🍫', items:[
+    { name:'Chocolat Chaud — Dark', price:'8' },
+    { name:'Chocolat Chaud — Snickers', price:'9' },
+    { name:'Chocolat Chaud — Caramel', price:'9' },
+    { name:'Chocolat Chaud — Bounty', price:'10' },
+    { name:'Chocolat Chaud — Fraise', price:'10' },
+    { name:'Chocolat Glacé — Dark', price:'8' },
+    { name:'Chocolat Glacé — Snickers', price:'9' },
+    { name:'Chocolat Glacé — Caramel', price:'9' },
+    { name:'Chocolat Glacé — Bounty', price:'10' },
+    { name:'Chocolat Glacé — Fraise', price:'10' },
+  ]},
+  { id:'shakes', title:'Milkshakes & Mojitos', icon:'🥤', items:[
+    { name:'Milkshake Vanille', price:'9' },
+    { name:'Milkshake Nutella', price:'10' },
+    { name:'Milkshake Oreo', price:'10' },
+    { name:'Milkshake Speculoos', price:'10' },
+    { name:'Milkshake Snickers', price:'10' },
+    { name:'Milkshake Bounty', price:'10' },
+    { name:'Milkshake Café Cookies', price:'11' },
+    { name:'Milkshake Workshop', price:'15', desc:'Nutella, M&Ms, Milka & Snickers.' },
+    { name:'Mojito Virgin', price:'7,5' },
+    { name:'Mojito Red / Blue', price:'8,5' },
+    { name:'Mojito Space', price:'9,5' },
+    { name:'Mojito Exotic', price:'9,5' },
+    { name:'Mojito Tropical', price:'9,5' },
+    { name:'Mojito Power', price:'14', desc:'À base de boisson énergétique.' },
+  ]},
+  { id:'smoothies', title:'Smoothies', icon:'🍹', items:[
+    { name:'Banane & Ananas', price:'9,5', desc:'Sans sucre ajouté.' },
+    { name:'Banane, Pomme & Épinard', price:'9,5', desc:'Sans sucre ajouté.' },
+    { name:'Banane & Fraise / Framboise', price:'9,5', desc:'Sans sucre ajouté.' },
+    { name:'Banane, Cacao & Beurre de cacahuète', price:'10,5', desc:'Sans sucre ajouté.' },
+  ]},
+  { id:'crepes', title:'Crêpes', icon:'🥞', items:[
+    { name:'Nutella', price:'12', desc:'The Original.' },
+    { name:'Othello', price:'14', desc:'Nutella, Banane & Oreo.' },
+    { name:'L\u2019Amandine', price:'14', desc:'Nutella & Amande.' },
+    { name:'Snickers', price:'14', desc:'Nutella, Snickers, Caramel, Beurre de cacahuète & cacahuète.' },
+    { name:'Pistache', price:'14', desc:'Nutella & Pistache.' },
+    { name:'Rocher', price:'14', desc:'Nutella, Noisette & Ferrero Rocher.' },
+    { name:'Speculoos', price:'14', desc:'Nutella, Speculoos & Lotus.' },
+    { name:'Workshop', price:'16', desc:'Nutella, Kinder, M&Ms, Milka, Oreo & Pépites de Chocolat.' },
+    { name:'Classic Thon', price:'12', desc:'Thon, Fromage & Harissa.' },
+    { name:'Classic Jambon', price:'12', desc:'Jambon, Fromage & Harissa.' },
+    { name:'Classic Duo', price:'14', desc:'Thon, Jambon, Fromage & Harissa.' },
+    { name:'Tunisienne', price:'14', desc:'Thon, Fromage, Harissa, Œuf & Olive.' },
+    { name:'Française', price:'14', desc:'Sauce Blanche, Fromage, Jambon & Champignons.' },
+    { name:'Mexicaine', price:'14', desc:'Sauce Blanche, Sauce Piquante, Fromage & Poulet.' },
+  ]},
+  { id:'savory', title:'Paninis & Omelettes', icon:'🥪', items:[
+    { name:'Panini Thon', price:'10', desc:'Thon, Fromage, Mayonnaise & Harissa.' },
+    { name:'Panini Jambon', price:'10', desc:'Jambon, Fromage, Mayonnaise & Harissa.' },
+    { name:'Panini Trio', price:'12', desc:'Thon, Jambon, Œuf, Fromage, Mayonnaise & Harissa.' },
+    { name:'Omelette Fromage', price:'8', desc:'Servie avec salade verte.' },
+    { name:'Omelette Thon & Fromage', price:'9', desc:'Servie avec salade verte.' },
+    { name:'Omelette Thon, Champignon & Fromage', price:'11', desc:'Servie avec salade verte.' },
+  ]},
+  { id:'waffles', title:'Gaufres Sucrées', icon:'🧇', items:[
+    { name:'Nutella', price:'9', desc:'The Original.' },
+    { name:'Othello', price:'10', desc:'Nutella & Oreo.' },
+    { name:'Speculoos', price:'11', desc:'Nutella & Speculoos.' },
+    { name:'Crispy', price:'11', desc:'Nutella & Fruits secs.' },
+    { name:'Workshop', price:'14', desc:'Nutella, Kinder, M&Ms, Milka, Oreo & Pépites de Chocolat.' },
+  ]},
+  { id:'tea', title:'Thé & Frappuccino', icon:'🍵', items:[
+    { name:'Thé à la Menthe', price:'3,5' },
+    { name:'Thé Infusion', price:'5' },
+    { name:'Thé aux Amandes', price:'7' },
+    { name:'Thé aux Pignons', price:'8' },
+    { name:'Frappuccino Café', price:'8' },
+    { name:'Frappuccino Caramel', price:'9' },
+    { name:'Frappuccino Noisette', price:'9' },
+    { name:'Frappuccino Fraise', price:'9' },
+    { name:'Frappuccino Cookies', price:'10' },
+    { name:'Frappuccino Oreo', price:'10' },
+  ]},
+  { id:'classics', title:'Boissons Classiques', icon:'🥤', items:[
+    { name:'Eau 0.5L', price:'2' },
+    { name:'Eau 1L', price:'3' },
+    { name:'Soda', price:'4' },
+    { name:'Citronnade', price:'4,5' },
+    { name:'Jus d\u2019Orange', price:'4,5' },
+    { name:'Jus de Fraise', price:'6' },
+    { name:'Lait de Poule', price:'8,5' },
+    { name:'Boisson Énergétique', price:'11' },
+  ]},
+];
+
+/* ================= RENDER ================= */
+const navEl = document.getElementById('catNav');
+const rootEl = document.getElementById('menuRoot');
+
+MENU.forEach((cat, ci) => {
+  // nav chip
+  const chip = document.createElement('button');
+  chip.className = 'cat-chip' + (ci === 0 ? ' active' : '');
+  chip.textContent = cat.icon + ' ' + cat.title;
+  chip.onclick = () => {
+    document.getElementById('sec-' + cat.id).scrollIntoView({behavior:'smooth', block:'start'});
+  };
+  navEl.appendChild(chip);
+
+  // section
+  const section = document.createElement('section');
+  section.className = 'cat-section reveal';
+  section.id = 'sec-' + cat.id;
+
+  const header = document.createElement('div');
+  header.className = 'cat-header';
+  header.innerHTML = `<span class="icon">${cat.icon}</span><h2>${cat.title}</h2><span class="count">${String(cat.items.length).padStart(2,'0')} items</span>`;
+  section.appendChild(header);
+
+  cat.items.forEach(it => {
+    const item = document.createElement('div');
+    item.className = 'item';
+
+    const head = document.createElement('div');
+    head.className = 'item-head';
+    head.innerHTML = `
+      <div class="glyph">${cat.icon}</div>
+      <div class="item-info">
+        <div class="item-name">${it.name}</div>
+        ${!it.desc ? '<div class="item-sub">Voir détails</div>' : ''}
+      </div>
+      <div class="item-price mono">${it.price} DT</div>
+      <div class="chevron">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    `;
+
+    const body = document.createElement('div');
+    body.className = 'item-body';
+    body.innerHTML = `<div class="item-body-inner">${it.desc || 'Préparé avec soin par notre équipe.'} <span class="tag">Workshop Bistro</span></div>`;
+
+    head.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // close others in same section for a cleaner feel (optional accordion behaviour)
+      item.classList.toggle('open');
+      if (!isOpen) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+      } else {
+        body.style.maxHeight = 0;
+      }
+    });
+
+    item.appendChild(head);
+    item.appendChild(body);
+    section.appendChild(item);
+  });
+
+  rootEl.appendChild(section);
+});
+
+/* ================= ACTIVE CHIP ON SCROLL ================= */
+const sections = MENU.map(c => document.getElementById('sec-' + c.id));
+const chips = Array.from(navEl.children);
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = sections.indexOf(e.target);
+      chips.forEach(c => c.classList.remove('active'));
+      if (idx > -1) {
+        chips[idx].classList.add('active');
+        chips[idx].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      }
+    }
+  });
+}, { rootMargin: '-90px 0px -70% 0px', threshold: 0 });
+
+sections.forEach(s => io.observe(s));
+
+/* ================= REVEAL ON SCROLL ================= */
+const revealIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealIo.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealIo.observe(el));
+
+/* ================= OPEN / CLOSE STATUS (live) ================= */
+function updateStatus(){
+  const el = document.getElementById('statusText');
+  const dot = document.querySelector('.status-dot');
+  const h = new Date().getHours();
+  const open = h >= 7 && h < 23;
+  el.textContent = open ? 'Ouvert · Ferme à 23:00' : 'Fermé · Ouvre à 07:00';
+  dot.style.background = open ? '#7CC98A' : '#C97C7C';
+}
+updateStatus();
+setInterval(updateStatus, 30000); // re-checks every 30s so it flips live at 07:00 / 23:00
+
+/* ================= DRAWER ================= */
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+const menuToggle = document.getElementById('menuToggle');
+const drawerCats = document.getElementById('drawerCats');
+
+MENU.forEach(cat => {
+  const link = document.createElement('div');
+  link.className = 'drawer-link';
+  link.innerHTML = `<span class="dot"></span>${cat.icon} ${cat.title}`;
+  link.addEventListener('click', () => {
+    closeDrawer();
+    setTimeout(() => document.getElementById('sec-' + cat.id).scrollIntoView({behavior:'smooth', block:'start'}), 250);
+  });
+  drawerCats.appendChild(link);
+});
+
+function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+menuToggle.addEventListener('click', openDrawer);
+overlay.addEventListener('click', () => { closeDrawer(); closeQr(); });
+
+document.querySelectorAll('.drawer-link[data-jump]').forEach(el => {
+  el.addEventListener('click', () => {
+    const id = el.dataset.jump;
+    closeDrawer();
+    setTimeout(() => {
+      if (id === 'top') window.scrollTo({top:0, behavior:'smooth'});
+      else if (id === 'footerAnchor') document.querySelector('.footer').scrollIntoView({behavior:'smooth'});
+      else document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 250);
+  });
+});
+document.querySelectorAll('.drawer-link[data-external]').forEach(el => {
+  el.addEventListener('click', () => window.open(el.dataset.external, '_blank', 'noopener'));
+});
+
+/* ================= QR CODE (live, points at current URL) ================= */
+const qrModal = document.getElementById('qrModal');
+const qrToggle = document.getElementById('qrToggle');
+const qrClose = document.getElementById('qrClose');
+const qrPrint = document.getElementById('qrPrint');
+const qrImg = document.getElementById('qrImg');
+const qrUrl = document.getElementById('qrUrl');
+
+function openQr(){
+  const url = window.location.href;
+  qrUrl.textContent = url;
+  qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=8&data=' + encodeURIComponent(url);
+  qrModal.classList.add('open');
+}
+function closeQr(){ qrModal.classList.remove('open'); }
+qrToggle.addEventListener('click', openQr);
+qrClose.addEventListener('click', closeQr);
+qrPrint.addEventListener('click', () => window.print());
+</script>
+</body>
+</html>
