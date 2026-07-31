@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -83,6 +84,9 @@
   .bean-mark .rays line{stroke:var(--gold);stroke-width:1.1;opacity:.55;}
   .bean-mark .bean{fill:var(--cream);}
   .bean-mark .bean.center{fill:var(--gold);}
+  .bean-mark .crease{fill:none; stroke-width:2.4; stroke-linecap:round;}
+  .bean-mark .crease.side{stroke:var(--gold);}
+  .bean-mark .crease.mid{stroke:var(--cream);}
 
   .brand-name{
     font-size:clamp(30px,8vw,42px);
@@ -213,6 +217,20 @@
     display:flex;align-items:center;justify-content:center;
     font-size:17px; flex:0 0 auto;
     background:linear-gradient(145deg, rgba(198,134,62,0.15), rgba(178,58,72,0.10));
+  }
+  .item-head .glyph.photo{
+    background-size:cover; background-position:center;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06);
+  }
+  .signature{
+    display:inline-block; font-size:9.5px; letter-spacing:.04em;
+    color:var(--burgundy); background:rgba(178,58,72,0.10);
+    padding:2px 6px; border-radius:999px; font-weight:700;
+    vertical-align:middle; margin-left:4px;
+  }
+  .item-photo{
+    width:100%; max-width:220px; height:140px; object-fit:cover;
+    border-radius:12px; display:block; margin-bottom:10px;
   }
   .item-info{flex:1; min-width:0;}
   .item-name{font-size:15px; font-weight:600; color:var(--ink);}
@@ -461,8 +479,11 @@
     <div class="bean-mark" style="width:34px;height:22px;">
       <svg viewBox="0 0 120 74">
         <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
+        <path class="crease side" d="M52,63 C46,54 46,44 55,34"/>
         <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
+        <path class="crease mid" d="M60,64 C57,52 57,40 60,29"/>
         <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
+        <path class="crease side" d="M68,63 C74,54 74,44 65,34"/>
       </svg>
     </div>
     <b>Workshop Bistro</b>
@@ -512,8 +533,11 @@
         <line x1="106" y1="60" x2="110" y2="50"/>
       </g>
       <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
+      <path class="crease side" d="M52,63 C46,54 46,44 55,34"/>
       <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
+      <path class="crease mid" d="M60,64 C57,52 57,40 60,29"/>
       <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
+      <path class="crease side" d="M68,63 C74,54 74,44 65,34"/>
     </svg>
   </div>
 
@@ -581,8 +605,11 @@
     <svg viewBox="0 0 120 74">
       <path class="arc" d="M6,66 A54,54 0 0 1 114,66"/>
       <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
+      <path class="crease side" d="M52,63 C46,54 46,44 55,34"/>
       <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
+      <path class="crease mid" d="M60,64 C57,52 57,40 60,29"/>
       <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
+      <path class="crease side" d="M68,63 C74,54 74,44 65,34"/>
     </svg>
   </div>
   <h3 class="display" style="margin:6px 0 2px; font-size:19px;">Workshop Bistro</h3>
@@ -602,16 +629,16 @@ const MENU = [
     { name:'Quickly', price:'8,5', desc:'Café au choix, Eau 0.5L, Jus Frais, Viennoiserie.' },
     { name:'Yogurt Bowl', price:'12', desc:'Café au choix, Eau 0.5L, Jus Frais, Granola fait maison, Fruit de saison.' },
     { name:'Salty', price:'19', desc:'Café au choix, Eau 0.5L, Jus Frais, Viennoiserie, Confiture/Beurre/Chocolat, Omelette avec Salade et Charcuterie.' },
-    { name:'Duo', price:'38', desc:'Pour 2 : Deux Cafés, Deux Eaux 0.5L, Deux Jus Frais, Deux Viennoiseries, Confiture/Beurre/Chocolat, Deux Omelettes avec Salade & Charcuterie, Deux mini Crêpes au Chocolat, Deux Yaourts au Granola, Deux Salades de Fruits.' },
+    { name:'Duo', price:'38', desc:'Pour 2 : Deux Cafés, Deux Eaux 0.5L, Deux Jus Frais, Deux Viennoiseries, Confiture/Beurre/Chocolat, Deux Omelettes avec Salade & Charcuterie, Deux mini Crêpes au Chocolat, Deux Yaourts au Granola, Deux Salades de Fruits.', image:'images/breakfast_duo.jpg' },
   ]},
-  { id:'coffee', title:'Café', icon:'☕', banner:'https://images.unsplash.com/photo-1761271046396-97d231b59dd7?w=1000&h=700&fit=crop&auto=format&q=80', items:[
+  { id:'coffee', title:'Café', icon:'☕', banner:'https://images.unsplash.com/photo-1512568400610-62da28bc8a13?w=1000&h=700&fit=crop&auto=format&q=80', items:[
     { name:'Espresso', price:'3,5', desc:'Court, intense et corsé.' },
     { name:'Macchiato', price:'4', desc:'Espresso taché d\u2019un nuage de mousse de lait.' },
     { name:'American', price:'4', desc:'Espresso allongé à l\u2019eau chaude.' },
     { name:'Latte Macchiato', price:'4,5', desc:'Lait chaud, mousse onctueuse et une touche d\u2019espresso.' },
     { name:'Néscafé / Ricoré', price:'6' },
     { name:'Capsule / Décaféiné', price:'5' },
-    { name:'Affogato', price:'7', desc:'Glace vanille noyée dans un espresso chaud.' },
+    { name:'Affogato', price:'7', desc:'Glace vanille noyée dans un espresso chaud.', image:'https://images.unsplash.com/photo-1594631661960-34762327295a?w=300&h=300&fit=crop&auto=format&q=75' },
     { name:'Mochaccino', price:'7', desc:'Espresso, chocolat et lait vapeur.' },
     { name:'Chocolat au lait', price:'5' },
     { name:'Cacao au lait', price:'5' },
@@ -625,7 +652,7 @@ const MENU = [
     { name:'Chocolat Chaud — Dark', price:'8' },
     { name:'Chocolat Chaud — Snickers', price:'9' },
     { name:'Chocolat Chaud — Caramel', price:'9' },
-    { name:'Chocolat Chaud — Bounty', price:'10' },
+    { name:'Chocolat Chaud — Bounty', price:'10', image:'https://images.unsplash.com/photo-1646388022965-2bfa12635f01?w=300&h=300&fit=crop&auto=format&q=75' },
     { name:'Chocolat Chaud — Fraise', price:'10' },
     { name:'Chocolat Glacé — Dark', price:'8' },
     { name:'Chocolat Glacé — Snickers', price:'9' },
@@ -641,18 +668,18 @@ const MENU = [
     { name:'Milkshake Snickers', price:'10' },
     { name:'Milkshake Bounty', price:'10' },
     { name:'Milkshake Café Cookies', price:'11' },
-    { name:'Milkshake Workshop', price:'15', desc:'Nutella, M&Ms, Milka & Snickers.' },
+    { name:'Milkshake Workshop', price:'15', desc:'Nutella, M&Ms, Milka & Snickers.', image:'images/banner_milkshakes.jpg' },
     { name:'Mojito Virgin', price:'7,5' },
     { name:'Mojito Red / Blue', price:'8,5' },
     { name:'Mojito Space', price:'9,5' },
     { name:'Mojito Exotic', price:'9,5' },
     { name:'Mojito Tropical', price:'9,5' },
-    { name:'Mojito Power', price:'14', desc:'À base de boisson énergétique.' },
+    { name:'Mojito Power', price:'14', desc:'À base de boisson énergétique.', image:'https://images.unsplash.com/photo-1753263453239-fef8e92b5040?w=300&h=300&fit=crop&auto=format&q=75' },
   ]},
   { id:'smoothies', title:'Smoothies', icon:'🍹', banner:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=1000&h=700&fit=crop&auto=format&q=80', items:[
     { name:'Banane & Ananas', price:'9,5', desc:'Sans sucre ajouté.' },
     { name:'Banane, Pomme & Épinard', price:'9,5', desc:'Sans sucre ajouté.' },
-    { name:'Banane & Fraise / Framboise', price:'9,5', desc:'Sans sucre ajouté.' },
+    { name:'Banane & Fraise / Framboise', price:'9,5', desc:'Sans sucre ajouté.', image:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=300&h=300&fit=crop&auto=format&q=75' },
     { name:'Banane, Cacao & Beurre de cacahuète', price:'10,5', desc:'Sans sucre ajouté.' },
   ]},
   { id:'crepes', title:'Crêpes', icon:'🥞', banner:'https://images.unsplash.com/photo-1515467837915-15c4777ba46a?w=1000&h=700&fit=crop&auto=format&q=80', items:[
@@ -663,7 +690,7 @@ const MENU = [
     { name:'Pistache', price:'14', desc:'Nutella & Pistache.' },
     { name:'Rocher', price:'14', desc:'Nutella, Noisette & Ferrero Rocher.' },
     { name:'Speculoos', price:'14', desc:'Nutella, Speculoos & Lotus.' },
-    { name:'Workshop', price:'16', desc:'Nutella, Kinder, M&Ms, Milka, Oreo & Pépites de Chocolat.' },
+    { name:'Workshop', price:'16', desc:'Nutella, Kinder, M&Ms, Milka, Oreo & Pépites de Chocolat.', image:'images/crepe_ferrero.jpg' },
     { name:'Classic Thon', price:'12', desc:'Thon, Fromage & Harissa.' },
     { name:'Classic Jambon', price:'12', desc:'Jambon, Fromage & Harissa.' },
     { name:'Classic Duo', price:'14', desc:'Thon, Jambon, Fromage & Harissa.' },
@@ -674,7 +701,7 @@ const MENU = [
   { id:'savory', title:'Paninis & Omelettes', icon:'🥪', banner:'https://images.unsplash.com/photo-1621852004158-f3bc188ace2d?w=1000&h=700&fit=crop&auto=format&q=80', items:[
     { name:'Panini Thon', price:'10', desc:'Thon, Fromage, Mayonnaise & Harissa.' },
     { name:'Panini Jambon', price:'10', desc:'Jambon, Fromage, Mayonnaise & Harissa.' },
-    { name:'Panini Trio', price:'12', desc:'Thon, Jambon, Œuf, Fromage, Mayonnaise & Harissa.' },
+    { name:'Panini Trio', price:'12', desc:'Thon, Jambon, Œuf, Fromage, Mayonnaise & Harissa.', image:'images/panini_interior.jpg' },
     { name:'Omelette Fromage', price:'8', desc:'Servie avec salade verte.' },
     { name:'Omelette Thon & Fromage', price:'9', desc:'Servie avec salade verte.' },
     { name:'Omelette Thon, Champignon & Fromage', price:'11', desc:'Servie avec salade verte.' },
@@ -684,7 +711,7 @@ const MENU = [
     { name:'Othello', price:'10', desc:'Nutella & Oreo.' },
     { name:'Speculoos', price:'11', desc:'Nutella & Speculoos.' },
     { name:'Crispy', price:'11', desc:'Nutella & Fruits secs.' },
-    { name:'Workshop', price:'14', desc:'Nutella, Kinder, M&Ms, Milka, Oreo & Pépites de Chocolat.' },
+    { name:'Workshop', price:'14', desc:'Nutella, Kinder, M&Ms, Milka, Oreo & Pépites de Chocolat.', image:'images/banner_gaufres.jpg' },
   ]},
   { id:'tea', title:'Thé & Frappuccino', icon:'🍵', banner:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=1000&h=700&fit=crop&auto=format&q=80', items:[
     { name:'Thé à la Menthe', price:'3,5' },
@@ -696,7 +723,7 @@ const MENU = [
     { name:'Frappuccino Noisette', price:'9' },
     { name:'Frappuccino Fraise', price:'9' },
     { name:'Frappuccino Cookies', price:'10' },
-    { name:'Frappuccino Oreo', price:'10' },
+    { name:'Frappuccino Oreo', price:'10', image:'images/banner_tea.jpg' },
   ]},
   { id:'classics', title:'Boissons Classiques', icon:'🥤', banner:'https://images.unsplash.com/photo-1592099759599-24b131b8e824?w=1000&h=700&fit=crop&auto=format&q=80', items:[
     { name:'Eau 0.5L', price:'2' },
@@ -749,10 +776,13 @@ MENU.forEach((cat, ci) => {
 
     const head = document.createElement('div');
     head.className = 'item-head';
+    const glyphContent = it.image
+      ? `<div class="glyph photo" style="background-image:url('${it.image}')"></div>`
+      : `<div class="glyph">${cat.icon}</div>`;
     head.innerHTML = `
-      <div class="glyph">${cat.icon}</div>
+      ${glyphContent}
       <div class="item-info">
-        <div class="item-name">${it.name}</div>
+        <div class="item-name">${it.name}${it.image ? ' <span class="signature">★ signature</span>' : ''}</div>
         ${!it.desc ? '<div class="item-sub">Voir détails</div>' : ''}
       </div>
       <div class="item-price mono">${it.price} DT</div>
@@ -763,7 +793,9 @@ MENU.forEach((cat, ci) => {
 
     const body = document.createElement('div');
     body.className = 'item-body';
-    body.innerHTML = `<div class="item-body-inner">${it.desc || 'Préparé avec soin par notre équipe.'} <span class="tag">Workshop Bistro</span></div>`;
+    body.innerHTML = `<div class="item-body-inner">
+      ${it.image ? `<img class="item-photo" src="${it.image}" alt="${it.name}" loading="lazy">` : ''}
+      ${it.desc || 'Préparé avec soin par notre équipe.'} <span class="tag">Workshop Bistro</span></div>`;
 
     head.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
