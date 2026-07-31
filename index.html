@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Workshop Bistro — Menu</title>
+<link rel="icon" href="images/logo.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -75,14 +76,15 @@
   .status-dot{width:6px;height:6px;border-radius:50%;background:#7CC98A;box-shadow:0 0 0 3px rgba(124,201,138,0.25);}
 
   .bean-mark{
-    width:108px;height:66px;margin:18px auto 6px;
+    width:108px;height:108px;margin:18px auto 6px;
     opacity:0; animation:riseIn .8s ease forwards; animation-delay:.15s;
+    background:#FBF7EC;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 14px 30px -10px rgba(0,0,0,0.45), 0 0 0 1px rgba(214,162,76,0.35);
+    padding:10px;
   }
-  .bean-mark svg{width:100%;height:100%;display:block;}
-  .bean-mark .arc{stroke:var(--gold);stroke-width:1.1;fill:none;opacity:.75;}
-  .bean-mark .rays line{stroke:var(--gold);stroke-width:1.1;opacity:.55;}
-  .bean-mark .bean{fill:var(--cream);}
-  .bean-mark .bean.center{fill:var(--gold);}
+  .bean-mark img{width:100%;height:100%;object-fit:contain;display:block;}
 
   .brand-name{
     font-size:clamp(30px,8vw,42px);
@@ -392,6 +394,53 @@
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
   }
+
+  /* ---------- HERO PHOTO GALLERY ---------- */
+  .gallery{
+    display:flex; gap:10px; overflow-x:auto;
+    padding:18px 16px 4px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .gallery::-webkit-scrollbar{display:none;}
+  .gallery img{
+    flex:0 0 auto;
+    width:126px; height:168px;
+    object-fit:cover;
+    border-radius:14px;
+    scroll-snap-align:start;
+    box-shadow:0 10px 22px -10px rgba(22,35,63,0.35);
+    border:1px solid var(--line);
+  }
+
+  /* ---------- CATEGORY BANNER ---------- */
+  .cat-banner{
+    position:relative;
+    height:132px;
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+  }
+  .cat-banner img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .cat-banner::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(0deg, rgba(22,35,63,0.78) 0%, rgba(22,35,63,0.15) 55%, transparent 100%);
+  }
+  .cat-banner .cat-banner-label{
+    position:absolute; left:14px; bottom:10px; z-index:2;
+    color:#fff; display:flex; align-items:center; gap:8px;
+  }
+  .cat-banner .cat-banner-label .icon{font-size:19px;}
+  .cat-banner .cat-banner-label h2{margin:0; font-size:19px; font-weight:600; color:#fff;}
+  .cat-banner .count{
+    position:absolute; right:14px; bottom:12px; z-index:2;
+    font-size:11px; color:#EFE7D4; font-family:'IBM Plex Mono',monospace;
+  }
+  .cat-header.no-banner{margin-bottom:12px;}
 </style>
 </head>
 <body>
@@ -411,12 +460,8 @@
 <div class="overlay" id="overlay"></div>
 <nav class="drawer" id="drawer">
   <div class="drawer-head">
-    <div class="bean-mark">
-      <svg viewBox="0 0 120 74">
-        <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
-        <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
-        <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
-      </svg>
+    <div class="bean-mark" style="width:34px;height:34px;">
+      <img src="images/logo.jpg" alt="Workshop Bistro">
     </div>
     <b>Workshop Bistro</b>
   </div>
@@ -453,31 +498,16 @@
   </div>
 
   <div class="bean-mark">
-    <svg viewBox="0 0 120 74">
-      <path class="arc" d="M6,66 A54,54 0 0 1 114,66"/>
-      <g class="rays">
-        <line x1="14" y1="60" x2="10" y2="50"/>
-        <line x1="24" y1="48" x2="19" y2="39"/>
-        <line x1="38" y1="38" x2="34" y2="28"/>
-        <line x1="60" y1="32" x2="60" y2="20"/>
-        <line x1="82" y1="38" x2="86" y2="28"/>
-        <line x1="96" y1="48" x2="101" y2="39"/>
-        <line x1="106" y1="60" x2="110" y2="50"/>
-      </g>
-      <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
-      <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
-      <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
-    </svg>
+    <img src="images/logo.jpg" alt="Workshop Bistro logo">
   </div>
 
   <h1 class="brand-name">Workshop Bistro</h1>
   <p class="brand-tag">It feels like home — this is my happy place</p>
 
   <div class="hero-meta">
-    <span class="pill">★ <b>4.3</b> (112 avis)</span>
+    <span class="pill">★ <b>4.3</b></span>
     <span class="pill">📍 Kélibia</span>
     <span class="pill">Depuis <b>2018</b></span>
-    <span class="pill">10–20 DT / pers.</span>
   </div>
 
   <div class="cta-row">
@@ -485,6 +515,17 @@
     <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=Workshop+Bistro+Kelibia" target="_blank" rel="noopener">🧭 Itinéraire</a>
   </div>
 </header>
+
+<div class="gallery">
+  <img src="images/crepe_ferrero.jpg" alt="Crêpe Workshop au Ferrero et cacahuètes" loading="lazy">
+  <img src="images/mm_drinks.jpg" alt="Table de boissons Workshop Bistro" loading="lazy">
+  <img src="images/pastry_coffee.jpg" alt="Viennoiserie et café" loading="lazy">
+  <img src="images/breakfast_duo.jpg" alt="Petit-déjeuner Duo" loading="lazy">
+  <img src="images/crepe_dessert.jpg" alt="Crêpe dessert Oreo Snickers" loading="lazy">
+  <img src="images/omelette_board.jpg" alt="Planche omelette et charcuterie" loading="lazy">
+  <img src="images/breakfast_plate1.jpg" alt="Assiette petit-déjeuner" loading="lazy">
+  <img src="images/banner_milkshakes.jpg" alt="Milkshake caramel" loading="lazy">
+</div>
 
 <!-- ================= ABOUT ================= -->
 <section class="about reveal">
@@ -522,13 +563,8 @@
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <div class="bean-mark" style="width:64px;height:40px;">
-    <svg viewBox="0 0 120 74">
-      <path class="arc" d="M6,66 A54,54 0 0 1 114,66"/>
-      <path class="bean" d="M60,66 C42,66 34,50 40,36 C44,27 52,26 58,34 C60,58 60,60 60,66 Z"/>
-      <path class="bean center" d="M60,66 C50,66 44,48 52,32 C56,24 64,24 68,32 C76,48 70,66 60,66 Z"/>
-      <path class="bean" d="M60,66 C78,66 86,50 80,36 C76,27 68,26 62,34 C60,58 60,60 60,66 Z"/>
-    </svg>
+  <div class="bean-mark" style="width:60px;height:60px;">
+    <img src="images/logo.jpg" alt="Workshop Bistro">
   </div>
   <h3 class="display" style="margin:6px 0 2px; font-size:19px;">Workshop Bistro</h3>
   <p>Av. de l'environnement, Kélibia · Ouvert tous les jours de 07:00 à 23:00.</p>
@@ -543,13 +579,13 @@
 <script>
 /* ================= DATA ================= */
 const MENU = [
-  { id:'breakfast', title:'Breakfast', icon:'🥐', items:[
+  { id:'breakfast', title:'Breakfast', icon:'🥐', banner:'images/croissant_table.jpg', items:[
     { name:'Quickly', price:'8,5', desc:'Café au choix, Eau 0.5L, Jus Frais, Viennoiserie.' },
     { name:'Yogurt Bowl', price:'12', desc:'Café au choix, Eau 0.5L, Jus Frais, Granola fait maison, Fruit de saison.' },
     { name:'Salty', price:'19', desc:'Café au choix, Eau 0.5L, Jus Frais, Viennoiserie, Confiture/Beurre/Chocolat, Omelette avec Salade et Charcuterie.' },
     { name:'Duo', price:'38', desc:'Pour 2 : Deux Cafés, Deux Eaux 0.5L, Deux Jus Frais, Deux Viennoiseries, Confiture/Beurre/Chocolat, Deux Omelettes avec Salade & Charcuterie, Deux mini Crêpes au Chocolat, Deux Yaourts au Granola, Deux Salades de Fruits.' },
   ]},
-  { id:'coffee', title:'Café', icon:'☕', items:[
+  { id:'coffee', title:'Café', icon:'☕', banner:'images/banner_coffee.jpg', items:[
     { name:'Espresso', price:'3,5', desc:'Court, intense et corsé.' },
     { name:'Macchiato', price:'4', desc:'Espresso taché d\u2019un nuage de mousse de lait.' },
     { name:'American', price:'4', desc:'Espresso allongé à l\u2019eau chaude.' },
@@ -566,7 +602,7 @@ const MENU = [
     { name:'Café Glacé — Caramel / Vanille / Noisette', price:'8' },
     { name:'Arôme au choix (Vanille, Caramel, Noisette, Cookies)', price:'+1', desc:'À ajouter à n\u2019importe quel café.' },
   ]},
-  { id:'chocolate', title:'Chocolat', icon:'🍫', items:[
+  { id:'chocolate', title:'Chocolat', icon:'🍫', banner:'images/banner_chocolate.jpg', items:[
     { name:'Chocolat Chaud — Dark', price:'8' },
     { name:'Chocolat Chaud — Snickers', price:'9' },
     { name:'Chocolat Chaud — Caramel', price:'9' },
@@ -578,7 +614,7 @@ const MENU = [
     { name:'Chocolat Glacé — Bounty', price:'10' },
     { name:'Chocolat Glacé — Fraise', price:'10' },
   ]},
-  { id:'shakes', title:'Milkshakes & Mojitos', icon:'🥤', items:[
+  { id:'shakes', title:'Milkshakes & Mojitos', icon:'🥤', banner:'images/mojito_night.jpg', items:[
     { name:'Milkshake Vanille', price:'9' },
     { name:'Milkshake Nutella', price:'10' },
     { name:'Milkshake Oreo', price:'10' },
@@ -600,7 +636,7 @@ const MENU = [
     { name:'Banane & Fraise / Framboise', price:'9,5', desc:'Sans sucre ajouté.' },
     { name:'Banane, Cacao & Beurre de cacahuète', price:'10,5', desc:'Sans sucre ajouté.' },
   ]},
-  { id:'crepes', title:'Crêpes', icon:'🥞', items:[
+  { id:'crepes', title:'Crêpes', icon:'🥞', banner:'images/crepe_othello.jpg', items:[
     { name:'Nutella', price:'12', desc:'The Original.' },
     { name:'Othello', price:'14', desc:'Nutella, Banane & Oreo.' },
     { name:'L\u2019Amandine', price:'14', desc:'Nutella & Amande.' },
@@ -616,7 +652,7 @@ const MENU = [
     { name:'Française', price:'14', desc:'Sauce Blanche, Fromage, Jambon & Champignons.' },
     { name:'Mexicaine', price:'14', desc:'Sauce Blanche, Sauce Piquante, Fromage & Poulet.' },
   ]},
-  { id:'savory', title:'Paninis & Omelettes', icon:'🥪', items:[
+  { id:'savory', title:'Paninis & Omelettes', icon:'🥪', banner:'images/panini_interior.jpg', items:[
     { name:'Panini Thon', price:'10', desc:'Thon, Fromage, Mayonnaise & Harissa.' },
     { name:'Panini Jambon', price:'10', desc:'Jambon, Fromage, Mayonnaise & Harissa.' },
     { name:'Panini Trio', price:'12', desc:'Thon, Jambon, Œuf, Fromage, Mayonnaise & Harissa.' },
@@ -624,14 +660,14 @@ const MENU = [
     { name:'Omelette Thon & Fromage', price:'9', desc:'Servie avec salade verte.' },
     { name:'Omelette Thon, Champignon & Fromage', price:'11', desc:'Servie avec salade verte.' },
   ]},
-  { id:'waffles', title:'Gaufres Sucrées', icon:'🧇', items:[
+  { id:'waffles', title:'Gaufres Sucrées', icon:'🧇', banner:'images/banner_gaufres.jpg', items:[
     { name:'Nutella', price:'9', desc:'The Original.' },
     { name:'Othello', price:'10', desc:'Nutella & Oreo.' },
     { name:'Speculoos', price:'11', desc:'Nutella & Speculoos.' },
     { name:'Crispy', price:'11', desc:'Nutella & Fruits secs.' },
     { name:'Workshop', price:'14', desc:'Nutella, Kinder, M&Ms, Milka, Oreo & Pépites de Chocolat.' },
   ]},
-  { id:'tea', title:'Thé & Frappuccino', icon:'🍵', items:[
+  { id:'tea', title:'Thé & Frappuccino', icon:'🍵', banner:'images/banner_tea.jpg', items:[
     { name:'Thé à la Menthe', price:'3,5' },
     { name:'Thé Infusion', price:'5' },
     { name:'Thé aux Amandes', price:'7' },
@@ -643,7 +679,7 @@ const MENU = [
     { name:'Frappuccino Cookies', price:'10' },
     { name:'Frappuccino Oreo', price:'10' },
   ]},
-  { id:'classics', title:'Boissons Classiques', icon:'🥤', items:[
+  { id:'classics', title:'Boissons Classiques', icon:'🥤', banner:'images/banner_classics.jpg', items:[
     { name:'Eau 0.5L', price:'2' },
     { name:'Eau 1L', price:'3' },
     { name:'Soda', price:'4' },
@@ -675,8 +711,17 @@ MENU.forEach((cat, ci) => {
   section.id = 'sec-' + cat.id;
 
   const header = document.createElement('div');
-  header.className = 'cat-header';
-  header.innerHTML = `<span class="icon">${cat.icon}</span><h2>${cat.title}</h2><span class="count">${String(cat.items.length).padStart(2,'0')} items</span>`;
+  if (cat.banner) {
+    header.className = 'cat-banner';
+    header.innerHTML = `
+      <img src="${cat.banner}" alt="${cat.title}" loading="lazy">
+      <div class="cat-banner-label"><span class="icon">${cat.icon}</span><h2>${cat.title}</h2></div>
+      <span class="count">${String(cat.items.length).padStart(2,'0')} items</span>
+    `;
+  } else {
+    header.className = 'cat-header no-banner';
+    header.innerHTML = `<span class="icon">${cat.icon}</span><h2>${cat.title}</h2><span class="count">${String(cat.items.length).padStart(2,'0')} items</span>`;
+  }
   section.appendChild(header);
 
   cat.items.forEach(it => {
